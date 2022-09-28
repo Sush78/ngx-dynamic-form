@@ -1,1 +1,124 @@
-<p>dynamic-form-input works!</p>
+<div [formGroup]="form" class="form-group">
+  <!-- for adding new controltype add new case in the same fashion as the rest of the cases, also
+       don't forget to catch the change event and handle it it in ts file, for more chech .ts  -->
+  <div [ngSwitch]="input.controlType">
+    <div *ngSwitchCase="formFieldEnum['TEXTBOX']">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>{{input.label}}</mat-label>
+            <input 
+                matInput 
+                placeholder="{{input.placeholder}}" 
+                value="{{input.value}}"
+                [formControlName]="input.key"
+                ngDefaultControl>
+        </mat-form-field>
+    </div>
+
+    <div *ngSwitchCase="formFieldEnum['DROPDOWN']">
+      <app-form-dropdown
+        [label]="input.label"
+        [infoIcon]="false"
+        [required]="input.required"
+        [provider]="input.options"
+        [placeholder]="input.placeholder"
+        [infoIcon]="input.infoIcon"
+        [tooltip]="input.tooltip"
+        [errorMsg]="input.errorMsg"
+        (onChange)="getDropDownValue($event[2])"
+        [disabled]="input.disabled"
+        [formControlName]="input.key"
+        [defaultSelected]="input.value"
+        ngDefaultControl
+      ></app-form-dropdown>
+    </div>
+
+    <div *ngSwitchCase="formFieldEnum['CHECKBOX']">
+        <section class="example-section"> <!-- add a for loop for checkboxes, there can be multiple -->
+            <mat-checkbox class="example-margin" [disabled]="{{input.disabled}}">{{input.label}}</mat-checkbox>
+            <!-- <mat-checkbox class="example-margin" [disabled]="true">Disabled</mat-checkbox> -->
+        </section>
+    </div>
+    <div class="radio-btn-container" *ngSwitchCase="formFieldEnum['RADIO']">
+      <div class="form-header">
+      <label *ngIf="input.label" class="body-normal medium multi-label">{{ input.label }}</label>   
+      <span class="req-dot" *ngIf="input.required"></span>
+      <span
+        *ngIf="input.infoIcon"
+        class="tool-tip"
+        (mouseover)="visible = true"
+        (mouseout)="visible = false"
+      >
+        <mat-icon matSuffix svgIcon="icon_help-circle"></mat-icon>
+        <app-tool-tip text="{{ input.tooltip }}" [isVisible]="visible"></app-tool-tip>
+      </span>
+      </div>
+      <div
+        class="form-check form-check-inline"
+        *ngFor="let opt of input.radioOptions"
+      >
+        <app-form-radio-btn
+          [formControlName]="input.key"
+          [key]="input.key"
+          [label]="opt.value"
+          [value]="opt.key"
+          [for]="opt.value"
+          [checked]="opt.checked"
+          (changeEvent)="getRadioValue($event)"
+          ngDefaultControl
+        ></app-form-radio-btn>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="formFieldEnum['TEXTAREA']">
+      <app-form-textarea-field
+        [label]="input.label"
+        [infoIcon]="input.infoIcon"
+        [required]="input.required"
+        [provider]="input.options"
+        [infoIcon]="input.infoIcon"
+        [tooltip]="input.tooltip"
+        [errorMsg]="input.errorMsg"
+        (onInputChange)="getTextAreaValue($event)"
+        [disabled]="input.disabled"
+        [formControlName]="input.key"
+        [inputValue]="input.value"
+        [placeholder]="input.placeholder"
+        [inputName]="input.type"
+        ngDefaultControl
+      ></app-form-textarea-field>
+    </div>
+    <div *ngSwitchCase="formFieldEnum['DATEPICKER']">
+        <mat-form-field appearance="fill">
+            <mat-label>{{input.label}}</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker ngDefaultControl [formControlName]="input.key"></mat-datepicker>
+        </mat-form-field>
+    </div> 
+  </div>
+
+  <p
+    *ngIf="
+      (input.required &&
+        fieldInvalid &&
+        validation.hasOwnProperty('required')) ||
+      !isRequired
+    "
+    class="body-tiny error"
+  >
+    {{ input.errorMsg }}
+  </p>
+  <ng-template ngFor let-validator [ngForOf]="input.validator">
+    <small
+      *ngIf="
+        fieldInvalid && validation.hasOwnProperty(validator.name.toLowerCase())
+      "
+      class="body-tiny error"
+      >{{ validator.errorMsg }}</small
+    >
+  </ng-template>
+  <p *ngIf="input.customValidationMsg" class="body-tiny error custom">
+    {{ input.customValidationMsg }}
+  </p>
+</div>

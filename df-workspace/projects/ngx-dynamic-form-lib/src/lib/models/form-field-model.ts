@@ -11,6 +11,7 @@ export class FormField<T> {
     customValidationMsg: string;
     disabled: boolean;
     order: number;
+    type: string;
     validator: {
       name: string;
       value: any;
@@ -37,6 +38,7 @@ export class FormField<T> {
         errorMsg?: string;
         customValidationMsg?: string;
         disabled?: boolean;
+        type?: string;
         validator?: {
           name: string;
           value: any;
@@ -66,6 +68,7 @@ export class FormField<T> {
       this.errorMsg = options.errorMsg || 'This field is required!';
       this.customValidationMsg = options.customValidationMsg || '';
       this.disabled = !!options.disabled;
+      this.type = options.type || "text"
       this.validator = options.validator || [
         { name: '', value: null, errorMsg: 'invalid' },
       ];
