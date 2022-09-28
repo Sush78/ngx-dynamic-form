@@ -5,3 +5,4 @@
 export * from './lib/ngx-dynamic-form-lib.service';
 export * from './lib/ngx-dynamic-form-lib.component';
 export * from './lib/ngx-dynamic-form-lib.module';
+export * from './lib/models/form-field-model';
