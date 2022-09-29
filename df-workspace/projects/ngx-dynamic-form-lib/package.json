@@ -4,9 +4,13 @@
   "peerDependencies": {
     "@angular/common": "^14.2.0",
     "@angular/core": "^14.2.0",
-    "@angular/material": "^14.2.2"
+    "@angular/material": "^14.2.2",
+    "lodash": "^4.17.21"
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.186"
   }
 }

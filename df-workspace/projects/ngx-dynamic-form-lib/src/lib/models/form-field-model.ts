@@ -18,7 +18,7 @@ export class FormField<T> {
       errorMsg: string;
     }[];
     controlType: string;
-    options: any[];
+    options: {value: string, viewValue: string}[];
     radioOptions: { key: string; value: string; checked: string }[];
     minDate: Date;
     selected?: any;
@@ -46,7 +46,7 @@ export class FormField<T> {
         }[];
         order?: number;
         controlType?: string;
-        options?: any[];
+        options?: {value: string, viewValue: string}[];
         radioOptions?: { key: string; value: string; checked: string }[];
         minDate?: Date;
         dependents?: any[];

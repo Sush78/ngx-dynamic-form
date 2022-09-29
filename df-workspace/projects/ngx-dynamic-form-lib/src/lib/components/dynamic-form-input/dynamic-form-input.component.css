@@ -1,0 +1,53 @@
+.radio-btn-container{
+    display: flex;
+    gap: 1rem;
+}
+.form-header {
+    display: flex;
+    align-items: center;
+    gap: 0.313rem;
+    height: 1rem;
+}   
+label.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+    
+.tool-tip {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    pointer-events: all;
+    opacity: 1;
+}
+    
+.tool-tip:hover app-tool-tip {
+    opacity: 1;
+    cursor: pointer;
+}
+    
+mat-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    filter: var(--filter);
+}
+    
+.focused {
+    opacity: 0.5;
+}
+    
+.req-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-top: 0.2rem;
+    background-color: getStateColor(error, base);
+}
+
+.custom{
+    margin-top: 0.7rem;
+}
+.error {
+    z-index: 1;
+    color: "red";
+}

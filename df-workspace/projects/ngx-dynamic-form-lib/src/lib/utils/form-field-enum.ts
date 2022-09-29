@@ -3,5 +3,6 @@ export enum FormFieldEnum {
     TEXTAREA = "textarea",
     DROPDOWN = "dropdown",
     RADIO = "radio",
-    CHECKBOX = "checkbox"
+    CHECKBOX = "checkbox",
+    DATEPICKER = "datepicker",
 }

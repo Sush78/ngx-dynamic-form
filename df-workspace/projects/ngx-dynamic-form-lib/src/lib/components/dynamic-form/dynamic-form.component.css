@@ -1,0 +1,41 @@
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.4rem;
+}
+.form-group {
+    padding: 1rem 0;
+}
+.btn-container {
+      left: 0;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border-top: 1px solid #dcdfe8;
+      padding: 1.74rem;
+      background-color: #fff;
+}
+.normal-btn-cont{
+    border-bottom: 1px solid #dcdfe8;
+}
+.btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 1rem;
+}
+.automation-btn-container {
+    width: 100%;
+}
+.btn-wrapper {
+    justify-content: start;
+}
+app-form-button:first-child{
+    display: none;
+}
+  
+@media (max-width: 1439px) {
+    .form {
+        column-gap: 1rem;
+    }
+}
+  

@@ -1,1 +1,64 @@
-<p>dynamic-form works!</p>
+<div
+  [ngStyle]="{
+    width: styleConfig.width
+  }"
+>
+  <ng-template [ngIf]="!cycleDetected">
+    <form class="form" (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div style="width: 100%">
+        <div
+          *ngFor="let formField of formFields"
+          [ngStyle]="{
+            padding: styleConfig.padding,
+            width:
+              styleConfig.wrap == false ||
+              app.mobile === true ||
+              app.tab === true
+                ? '100%'
+                : formField.controlType === 'checkbox'
+                ? 'fit-content'
+                : '48.2%'
+          }"
+        >
+          <!-- if you need new form controls to be added- changes should be made in dynamic-form.ts, app-dynamic-form-input 
+          and form-field.ts (if the new control has new variable types as props),for more details check respective files -->
+          <app-dynamic-form-input
+            [input]="formField"
+            [form]="form"
+            (formFieldChange)="formFieldChange($event)"
+            (superTableIcon)="superTableIcon($event)"
+            (superTableDropDown)="superTableDropDown($event)"
+            (superTableInput)="superTableInput($event)"
+            (superTableCheck)="superTableCheck($event)"
+          >
+          </app-dynamic-form-input>
+        </div>
+      </div>
+      <div class="btn-container {{ externalClass ? externalClass : '' }} ">
+        <div class="btn-wrapper">
+          <app-form-button
+            [externalClass]="externalClass ? externalClass : ''"
+            [type]="'tertiary'"
+            [text]="secBtnText"
+            [remove]="'remove'"
+            [disabled]="showSpinner"
+            (onClick)="handleClose($event)"
+          ></app-form-button>
+          <app-form-button
+            [externalClass]="externalClass ? externalClass : ''"
+            [type]="'primary'"
+            [inputName]="'submit'"
+            [text]="btnName"
+            [disabled]="form.invalid || showSpinner"
+            [iconPrefix]="btnIcon"
+            [remove]="'remove'"
+            [showSpinner]="showSpinner"
+          ></app-form-button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template [ngIf]="cycleDetected">
+    <p class="no-data-found">Form can not be displayed</p>
+  </ng-template>
+</div>
